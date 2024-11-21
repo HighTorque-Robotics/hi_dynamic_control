@@ -43,7 +43,7 @@ catkin build ocs2_legged_robot_ros ocs2_self_collision_visualization
 # Clone
 mkdir -p <catkin_ws_name>/src
 cd <catkin_ws_name>/src
-git clone git@github.com:HighTorque-Robotics/hi_dynamic_control.git
+git clone https://github.com/HighTorque-Robotics/hi_dynamic_control.git
 
 # Clone SDK
 git clone https://github.com/HighTorque-Robotics/livelybot_robot.git
