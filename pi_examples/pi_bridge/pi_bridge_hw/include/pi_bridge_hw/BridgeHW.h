@@ -122,7 +122,7 @@ private:
   float transform_CurrentPos[12] = { 0 };
 
   const std::vector<int> directionMotor_{ -1, 1, 1, 1,  -1,  -1, 1, 1, -1, -1, 1, 1 };//65432
-  const std::vector<int> test_directionMotor_{ 1, 1, -1, -1, 1, 1,  -1, 1, -1, 1, -1, 1};//65432
+  const std::vector<int> test_directionMotor_{ 1, 1, -1, -1, 1, -1,    -1, 1, -1, 1, 1, -1};//65432
 
   // float read_baseMotor_[12] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   // float write_baseMotor_[12] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -130,7 +130,7 @@ private:
   std::vector<int> map_index{2, 3, 1, 4, 0, 7, 8, 6, 9, 5};
   // std::vector<int> map_index_12dof{3, 4, 2, 5, 1, 9, 10, 8, 11, 7};
   std::vector<int> map_index_12dof{5, 4, 3, 2, 1, 0, 11, 10, 9, 8, 7, 6};
-  std::vector<int> map_index_23dof{6, 5, 4, 3, 2, 1, 0, 12, 11, 10, 9, 8, 7, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
+  std::vector<int> map_index_23dof{6, 5, 4, 3, 2, 1, 0, 12, 11, 10, 9, 7, 8, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22};
   std::vector<double> torque_coefficient_{0.75, 0.75, 0.75, 0.75, 0.75, 0.75,  0.75, 0.75, 0.75, 0.75, 0.75, 0.75};
   // std::vector<int> mapPosInURDF = {4, 2, 0, 1, 3, 9, 7, 5, 6, 8};
   // std::vector<int> mapPosInMotor = {2, 3, 1, 4, 0, 7, 8, 6, 9, 5};

@@ -1,5 +1,5 @@
 # hi_dynamic_control
-An open source bipedal robot control framework for **Hi robot with serial ankle joint**, based on nonlinear MPC and WBC.
+An open source bipedal robot control framework for **Hi robot with parallel ankle joint**, based on nonlinear MPC and WBC.
 
 ![](./docs/Hi_robot.png)
 

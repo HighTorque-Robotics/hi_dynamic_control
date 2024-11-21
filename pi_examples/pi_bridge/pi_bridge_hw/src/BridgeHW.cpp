@@ -64,6 +64,35 @@ void BridgeHW::read(const ros::Time &time, const ros::Duration &period)
     jointData_[i].vel_ = test_directionMotor_[i] * test_jointData_[i].vel_;
     jointData_[i].tau_ = test_directionMotor_[i] * test_jointData_[i].tau_;
   }
+
+  float q4 = jointData_[4].pos_;
+  float q5 = jointData_[5].pos_;
+  float dq4 = jointData_[4].vel_;
+  float dq5 = jointData_[5].vel_;
+  float t4 = jointData_[4].tau_;
+  float t5 = jointData_[5].tau_;
+
+  float q10 = jointData_[10].pos_;
+  float q11 = jointData_[11].pos_;
+  float dq10 = jointData_[10].vel_;
+  float dq11 = jointData_[11].vel_;
+  float t10 = jointData_[10].tau_;
+  float t11 = jointData_[11].tau_;
+  
+  jointData_[4].pos_ = (q4 + q5) / 2;
+  jointData_[5].pos_ = (q4 - q5) / 2;
+  jointData_[4].vel_ = (dq4 + dq5) / 2;
+  jointData_[5].vel_ = (dq4 - dq5) / 2;
+  jointData_[4].tau_ = t4 + t5;
+  jointData_[5].tau_ = t4 - t5;
+
+  jointData_[10].pos_ = (q10 + q11) / 2;
+  jointData_[11].pos_ = (q10 - q11) / 2;
+  jointData_[10].vel_ = (dq10 + dq11) / 2;
+  jointData_[11].vel_ = (dq10 - dq11) / 2;
+  jointData_[10].tau_ = q10 + q11;
+  jointData_[11].tau_ = q10 - q11;
+
   
   imuData_.ori[0] = yesenceIMU_.orientation.x;       
   imuData_.ori[1] = yesenceIMU_.orientation.y; 
@@ -81,6 +110,35 @@ void BridgeHW::read(const ros::Time &time, const ros::Duration &period)
 void BridgeHW::write(const ros::Time& time, const ros::Duration& period)
 {
  
+  
+  float q4 = jointData_[4].pos_des_;
+  float q5 = jointData_[5].pos_des_;
+  float dq4 = jointData_[4].vel_des_;
+  float dq5 = jointData_[5].vel_des_;
+  float t4 = jointData_[4].ff_;
+  float t5 = jointData_[5].ff_;
+
+  float q10 = jointData_[10].pos_des_;
+  float q11 = jointData_[11].pos_des_;
+  float dq10 = jointData_[10].vel_des_;
+  float dq11 = jointData_[11].vel_des_;
+  float t10 = jointData_[10].ff_;
+  float t11 = jointData_[11].ff_;
+
+  jointData_[4].pos_des_ = (q4 + q5);
+  jointData_[5].pos_des_ = (q4 - q5);
+  jointData_[4].vel_des_ = (dq4 + dq5);
+  jointData_[5].vel_des_ = (dq4 - dq5);
+  jointData_[4].ff_ = (t4 + t5) / 2;
+  jointData_[5].ff_ = (t4 - t5) / 2;
+  
+  jointData_[10].pos_des_ = (q10 + q11);
+  jointData_[11].pos_des_ = (q10 - q11);
+  jointData_[10].vel_des_ = (dq10 + dq11);
+  jointData_[11].vel_des_ = (dq10 - dq11);
+  jointData_[10].ff_ = (t10 + t11) / 2;
+  jointData_[11].ff_ = (t10 - t11) / 2;
+
   for (int i = 0; i < 12; ++i)//as the urdf rank
   {
 
@@ -89,7 +147,14 @@ void BridgeHW::write(const ros::Time& time, const ros::Duration& period)
     yksSendcmd_[i].pos_des_ = jointData_[i].pos_des_ * test_directionMotor_[i];//+ write_baseMotor_[i] ;
     yksSendcmd_[i].vel_des_ = jointData_[i].vel_des_ * test_directionMotor_[i];
     yksSendcmd_[i].ff_ = test_directionMotor_[i]*jointData_[i].ff_ ;
+
+    // yksSendcmd_[i].kp_ = 0;
+    // yksSendcmd_[i].kd_ = 0;
+    // yksSendcmd_[i].pos_des_ = 0;
+    // yksSendcmd_[i].vel_des_ = 0;
+    // yksSendcmd_[i].ff_ = 0;
   }
+  
 
   motorsInterface->fresh_cmd_dynamic_config(0, 0, 0, 30, 1,map_index_23dof[0]);  //loin_yaw
   for (int i = 0; i < 12; ++i){
