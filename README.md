@@ -108,8 +108,6 @@ roslaunch pi_controllers one_start_real.launch
 
 4. Use the joystick to publish command velocity.
 
-The following is a schematic diagram of the handle operation:
-
 ![](./docs/Joystick_control.png)
 
 ### Control Without Gamepad
