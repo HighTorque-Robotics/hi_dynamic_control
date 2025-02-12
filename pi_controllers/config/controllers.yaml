@@ -1,0 +1,9 @@
+controllers:
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 100
+  pi_controller:
+    type: legged/piController
+  pi_cheater_controller:
+    type: legged/LeggedCheaterController
+  

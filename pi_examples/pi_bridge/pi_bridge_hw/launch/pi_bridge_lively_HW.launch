@@ -1,0 +1,24 @@
+<launch>
+    <arg name="robot_type" default="pi" doc="Robot type: [yks]"/>
+    
+    <param name="legged_robot_description" command="$(find xacro)/xacro $(find pi_description)/urdf/hi.urdf
+        robot_type:=$(arg robot_type) "/>
+
+    <rosparam file="$(find pi_bridge_hw)/config/$(arg robot_type).yaml" command="load"/>
+
+    <param name="robot_type" value="$(arg robot_type)"/>
+
+    <!-- <arg name = "dof_type" default = "12"/>
+    <arg name = "mcu_type" default = "STM32H730"/>
+    <arg name = "model_type" default = "P"/>
+    <arg name = "design" default = "Hector"/>   -->
+
+    <node name="pi_bridge_hw" pkg="pi_bridge_hw" type="pi_bridge_hw" respawn="false" clear_params="true" output="screen">
+    </node>
+    
+    <node pkg="yesense_imu" type="yesense_imu_node" name="yesense_imu_node" output="screen" respawn="true" respawn_delay="0.002" >
+        <param name="yesense_port"      type="string" value="/dev/ttyACM"/>
+        <param name="yesense_baudrate"  type="int"    value="460800"/>
+    </node>
+
+</launch>
