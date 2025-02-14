@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+
+<launch>
+    <!-- Rosbag record node -->
+
+    <arg name="robot_type" default="hi" doc="Robot type: [pi]"/>
+    <arg name="rviz" default="true"/>
+    <arg name="record_data" default="false"/>
+
+    <rosparam file="/home/pi/biped_ws/src/sdk_v3/src/livelybot_description/robot_param/23dof_STM32H730_model_test_Orin_params.yaml" command="load" />
+
+    <include file="$(find hi_bridge_hw)/launch/hi_bridge_lively_HW.launch"/>
+
+    <node pkg="hi_controllers" type="timedelay_launch.sh" name="timedelay_launch" args="2 hi_controllers load_controller_real.launch" output="screen"/>
+
+    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find hi_controllers)/rviz/legged_robot.rviz" required="false" />
+
+    <group if="$(arg record_data)">
+        <include file="$(find hi_controllers)/launch/record_data.launch"/>
+    </group>
+
+    <node name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" output="screen"></node>
+
+</launch>

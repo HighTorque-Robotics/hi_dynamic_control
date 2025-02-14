@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+
+<launch>
+    <arg name="robot_type" default="hi" doc="Robot type: [hi]"/>
+    <arg name="cheater" default="false"/>
+
+    <include file="$(find hi_controllers)/launch/joy_teleop.launch"/>
+
+    <!-- make the files into global parameters -->
+    <param name="urdfFile" value="$(find hi_description)/urdf/$(arg robot_type).urdf"/>
+    <param name="taskFile" value="$(find hi_controllers)/config/$(arg robot_type)/task_sim.info"/>
+    <param name="referenceFile" value="$(find hi_controllers)/config/$(arg robot_type)/reference_sim.info"/>
+    <param name="gaitCommandFile" value="$(find hi_controllers)/config/$(arg robot_type)/gait.info"/>
+    <param name="trajDataFile" value="$(find hi_controllers)/data/q_qd_q2d.csv"/>
+    <param name="collectDataDir" value="$(find hi_controllers)/data/"/>
+
+    <rosparam file="$(find hi_controllers)/config/controllers.yaml" command="load"/>
+
+    <node if="$(arg cheater)" name="controller_loader" pkg="controller_manager" type="spawner"
+          output="screen" args="
+          controllers/hi_controller
+          controllers/hi_cheater_controller"/>
+
+    <node unless="$(arg cheater)" name="controller_loader" pkg="controller_manager" type="spawner"
+          output="screen" args="
+          controllers/hi_controller"/>
+
+    <node pkg="hi_controllers" type="hi_target_trajectories_publisher" name="hi_robot_target"
+          output="screen"/>
+          
+
+</launch>

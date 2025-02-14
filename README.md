@@ -58,13 +58,13 @@ catkin config -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 # for different use build 
 # gazebo simulation 
-catkin build pi_controllers pi_description pi_gazebo
+catkin build hi_controllers hi_description hi_gazebo
 
 # real robot deploy 
-catkin build pi_controllers pi_description pi_bridge_hw
+catkin build hi_controllers hi_description hi_bridge_hw
 
 #  Robot hardware 
-catkin build pi* yesense* livelybot*
+catkin build hi* yesense* livelybot*
 ```
 
 ## Gazebo Simulation
@@ -72,7 +72,7 @@ catkin build pi* yesense* livelybot*
 Run the gazebo simulation and load the controller:
 
 ```shell
-roslaunch pi_controllers one_start_gazebo.launch    
+roslaunch hi_controllers one_start_gazebo.launch    
 ```
 
 ***Notes:***
@@ -95,7 +95,7 @@ sudo chmod 777 /dev/tty*
 
 Then you can launch the robot hardware.
 ```shell
-roslaunch pi_controllers one_start_real.launch    
+roslaunch hi_controllers one_start_real.launch    
 ```
 
 ### Gamepad Control

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>hi_controllers</name>
+    <version>0.0.0</version>
+    <description>The hi_controllers packages.</description>
+    <maintainer email="service@hightorque.cn">hightorque</maintainer>
+    <license>MIT</license>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>cmake_clang_tools</build_depend>
+    <depend>roscpp</depend>
+    <depend>hi_common</depend>
+    <depend>hi_interface</depend>
+    <depend>hi_estimation</depend>
+    <depend>hi_wbc</depend>
+
+    <depend>controller_interface</depend>
+    <depend>ocs2_legged_robot_ros</depend>
+    <depend>ocs2_self_collision_visualization</depend>
+
+    <depend>angles</depend>
+    <depend>dynamic_reconfigure</depend>
+    <depend>rospy</depend>
+    <depend>std_msgs</depend>
+    <depend>message_runtime</depend>
+    <depend>message_generation</depend>
+
+    <exec_depend>controller_manager</exec_depend>
+
+    <export>
+        <controller_interface plugin="${prefix}/hi_controllers_plugins.xml"/>
+    </export>
+</package>
